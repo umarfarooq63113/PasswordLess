@@ -17,7 +17,7 @@
             android:text="LogOut"
             android:id="@+id/btnLogout"/>
 
-        <TextView
+        <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvPhone"/>
@@ -37,6 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/etUserEmail"
-            android:hint="User email"/>
+            android:hint="User email"/>-->
     </LinearLayout>
 </RelativeLayout>

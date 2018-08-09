@@ -54,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
-
-
     }
 
     private void startLoginPage(LoginType loginType) {
@@ -67,9 +64,7 @@ public class MainActivity extends AppCompatActivity {
                             AccountKitActivity.ResponseType.CODE);
             intent.putExtra(AccountKitActivity.ACCOUNT_KIT_ACTIVITY_CONFIGURATION, configurationBuilder.build());
             startActivityForResult(intent, REQUEST_CODE);
-        }
-
-        else if (loginType == LoginType.PHONE) {
+        } else if (loginType == LoginType.PHONE) {
             Intent intent = new Intent(this, AccountKitActivity.class);
             AccountKitConfiguration.AccountKitConfigurationBuilder configurationBuilder =
                     new AccountKitConfiguration.AccountKitConfigurationBuilder(LoginType.PHONE,
@@ -78,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, REQUEST_CODE);
         }
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,18 +90,14 @@ public class MainActivity extends AppCompatActivity {
 
                 return;
 
-
-               /* Toast.makeText(this, "Success ! %s "+result.getAuthorizationCode()
-                        .substring(0,10), Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this,Success.class));*/
             } else {
                 if (result.getAccessToken() != null) {
-                    Toast.makeText(this, "Success ! " + result.getAccessToken().getAccountId()
+                    Toast.makeText(this, "Not success ! " + result.getAccessToken().getAccountId()
                             , Toast.LENGTH_SHORT).show();
                 } else {
 
-                    Toast.makeText(this, "Success ! "+result.getAuthorizationCode()
-                            .substring(0,10), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Success ! " + result.getAuthorizationCode()
+                            .substring(0, 10), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(this, Success.class));
 
                 }
@@ -118,21 +110,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void printKeyHash() {
-    try{
-        PackageInfo info=getPackageManager().getPackageInfo("com.example.umar.passwordless",
-                PackageManager.GET_SIGNATURES);
-        for(Signature signature: info.signatures)
-        {
-            MessageDigest md= MessageDigest.getInstance("SHA");
-            md.update(signature.toByteArray());
-            Log.d("MYKEY", Base64.encodeToString(md.digest(),Base64.DEFAULT));
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo("com.example.umar.passwordless",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.d("MYKEY", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+
+
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
         }
-
-
-    } catch (PackageManager.NameNotFoundException e) {
-        e.printStackTrace();
-    } catch (NoSuchAlgorithmException e) {
-        e.printStackTrace();
-    }
     }
 }
